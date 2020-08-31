@@ -16,8 +16,8 @@ class _Step3State extends State<Step3> {
   var dbmanager = new Dbmedica();
   double dose = Dose_a_administrer();
   double volume = Volume_finale();
-  int nbr_flacon = Nbr_flacon(volume_flacon: 26.3);
-  double reliquat = Reliquat(volume_flacon: 26.3);
+  int nbr_flacon = Nbr_flacon();
+  double reliquat = Reliquat();
   int poche = ChoisirPoche(cmax: 10, cmin: 1);
   @override
   Widget build(BuildContext context) {

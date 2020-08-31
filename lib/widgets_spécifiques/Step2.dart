@@ -66,10 +66,23 @@ class _Step2State extends State<Step2> {
                   return DropdownButton<String>(
                     items: getDropDownItem(),
                     value: selected_item,
-                    onChanged: (value) {
+                    onChanged: (value)async {
                       setState(() {
                         selected_item = value;
+                        print(' selected item $selected_item');
+
                       });
+                      //on chercher par le nom de tableau medicament apres on voit id et on l extrait au detail medicament
+                      med_search =
+                          await dbmanager.chercherMed(selected_item);
+                      int id_med = med_search.id_medicament;
+                      print(' selected item $id_med');
+                      //on va au tab details med et extrait tout ce que on veut
+
+                      medi_detail_det=await dbmanager.getMedDetail(id_med);
+                      ci_jcombobox_selected = medi_detail_det.presentation;
+                      volume_flcn_jcombobox_selected =med_search.volume_flacon;
+                      print(' detail pres $ci_jcombobox_selected  volume flacon $volume_flcn_jcombobox_selected');
                     },
                   );
                 }

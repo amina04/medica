@@ -2,6 +2,7 @@
 
 import 'package:medica/controller/calcul_step2_controller.dart';
 
+import '../main.dart';
 import 'calcul_step1_controller.dart';
 
 /*double Dose_a_administrer({double surface, double posologie}) {
@@ -31,7 +32,7 @@ double Dose_a_administrer() {
 //la fonction qui calcule la volume finale
 double Volume_finale() {
   double dose = Dose_a_administrer();
-  double ci = 38;
+  double ci = ci_jcombobox_selected;
   double volume = 0.0;
   volume = (dose / ci);
   String vol = volume.toStringAsFixed(2);
@@ -42,7 +43,8 @@ double Volume_finale() {
 }
 
 //la fonction qui calcule le nombre des flacons
-int Nbr_flacon({double volume_flacon}) {
+int Nbr_flacon() {
+  double volume_flacon=volume_flcn_jcombobox_selected;
   double volume = Volume_finale();
 
   int nbr_flcn = 0;
@@ -56,11 +58,11 @@ int Nbr_flacon({double volume_flacon}) {
 }
 
 //la fonction qui calcule reliquats
-double Reliquat({double volume_flacon}) {
+double Reliquat() {
   double volume = Volume_finale();
-  int nbr_flcn = Nbr_flacon(volume_flacon: volume_flacon);
+  int nbr_flcn = Nbr_flacon();
   double reliqat = 0;
-  reliqat = (nbr_flcn * volume_flacon) - volume;
+  reliqat = (nbr_flcn * volume_flcn_jcombobox_selected) - volume;
   String rel = reliqat.toStringAsFixed(2);
 
   reliqat = double.parse(rel);

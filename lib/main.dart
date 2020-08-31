@@ -27,7 +27,8 @@ List poche_list;
 Medicament med_det, med_modif, med_search;
 Detail_medicament medi_detail_det;
 Patient patient_det, patient_search;
-
+double ci_jcombobox_selected;
+double volume_flcn_jcombobox_selected;
 int selected_id;
 int selected_id_patient;
 int updated_id;
