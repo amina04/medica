@@ -23,6 +23,7 @@ import 'view/start.dart';
 List meds;
 List patient_list;
 List poche_list;
+List meds_detail;
 //utilisée dans list view pour le item selectionner a le id de item
 Medicament med_det, med_modif, med_search;
 Detail_medicament medi_detail_det;
@@ -33,7 +34,7 @@ int selected_id;
 int selected_id_patient;
 int updated_id;
 String selected_item = null;
-int selected_item_poche = null;
+
 int height = 180;
 int weight = 60;
 void main() async {
@@ -86,7 +87,7 @@ void main() async {
   patient_list = await dbmanager.getAllpatient();
   poche_list = await dbmanager.getAllPoches();
   //med_det = await dbmanager.getMed(selected_id);
-
+  meds_detail = await dbmanager.getAllDetailMed();
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
     if (kReleaseMode) exit(1);

@@ -30,21 +30,6 @@ class _Step2State extends State<Step2> {
     return dropdownitems;
   }
 
-  List<DropdownMenuItem> getDropDownItemPoche() {
-    List<DropdownMenuItem<int>> dropdownitems = [];
-    for (int i = 0; i < poche_list.length; i++) {
-      //  extrait le nom de chaque objet comme dans list screen
-
-      int currency = Poches.fromMap(poche_list[i]).volume_poche;
-      var newItem = DropdownMenuItem(
-        child: Text(currency.toString()),
-        value: currency,
-      );
-      dropdownitems.add(newItem);
-    }
-    return dropdownitems;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,7 +65,7 @@ class _Step2State extends State<Step2> {
                       //on va au tab details med et extrait tout ce que on veut
 
                       medi_detail_det=await dbmanager.getMedDetail(id_med);
-                      ci_jcombobox_selected = medi_detail_det.presentation;
+                      ci_jcombobox_selected = medi_detail_det.c_init;
                       volume_flcn_jcombobox_selected =med_search.volume_flacon;
                       print(' detail pres $ci_jcombobox_selected  volume flacon $volume_flcn_jcombobox_selected');
                     },
@@ -106,37 +91,7 @@ class _Step2State extends State<Step2> {
           label: 'Réduction',
           controller: reduction_ctrl,
         ),
-        SizedBox(
-          height: 15.0,
-        ),
-        Row(
-          children: <Widget>[
-            Text(
-              'Volume du poche : ',
-              style: klabelTextStyle,
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            FutureBuilder(
-              future: dbmanager.getAllPoches(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return DropdownButton<int>(
-                    items: getDropDownItemPoche(),
-                    value: selected_item_poche,
-                    onChanged: (value) {
-                      setState(() {
-                        selected_item_poche = value;
-                      });
-                    },
-                  );
-                }
-                return new CircularProgressIndicator();
-              },
-            ),
-          ],
-        ),
+
       ],
     );
   }

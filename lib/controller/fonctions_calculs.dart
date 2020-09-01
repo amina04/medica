@@ -35,6 +35,9 @@ double Volume_finale() {
   double ci = ci_jcombobox_selected;
   double volume = 0.0;
   volume = (dose / ci);
+  print(' volumr $volume');
+  print(' dose $dose');
+  print(' ci $ci');
   String vol = volume.toStringAsFixed(2);
 
   double volum = double.parse(vol);
