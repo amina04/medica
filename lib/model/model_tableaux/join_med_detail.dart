@@ -94,7 +94,7 @@ class Join_med_detail {
       map['FKmedId'] = _FKmedId;}
     return map;
   }
-
+//hhhh
   Join_med_detail.fromMap(Map<String, dynamic> map) {
     this._nom = map['nom'];
     this._qte_disponible = map['qte_disponible'];
