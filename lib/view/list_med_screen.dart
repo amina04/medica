@@ -4,6 +4,7 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:medica/controller/searching_controller.dart';
 import 'package:medica/main.dart';
 import 'package:medica/model/database.dart';
+import 'package:medica/model/model_tableaux/join_med_detail.dart';
 import 'package:medica/model/model_tableaux/medicament.dart';
 import 'package:medica/model/model_tableaux/medicament.dart';
 import 'package:medica/view/medicament_details_screen.dart';
@@ -89,10 +90,10 @@ class _List_medState extends State<List_med> {
       //pour reecrier la list view aprées chaque ajout
 
       body: FutureBuilder(
-        future: dbmanager.getAllMed(),
+        future: dbmanager.getAllJoinMedDetail(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            meds = snapshot.data;
+            join_med = snapshot.data;
             return _buildlistview();
           }
           return new CircularProgressIndicator();
@@ -115,17 +116,17 @@ class _List_medState extends State<List_med> {
   //la methode buildlist view
   ListView _buildlistview() {
     return ListView.builder(
-        itemCount: meds == null ? 0 : meds.length,
+        itemCount: join_med == null ? 0 : join_med.length,
         itemBuilder: (BuildContext context, int position) {
           return Card(
             child: ListTile(
               title: Text(
-                'médicament : ${Medicament.fromMap(meds[position]).nom}',
+                'médicament : ${Join_med_detail.fromMap(join_med[position]).nom}',
                 style: kresultliststyle,
               ),
               //un sous titre
               subtitle: Text(
-                'Laboratoire : paracétamol',
+                'Laboratoire : ${Join_med_detail.fromMap(join_med[position]).nom_labo}',
                 style: klabelTextStyle,
               ),
               //l icon a droite
@@ -144,7 +145,7 @@ class _List_medState extends State<List_med> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Detail_med()));
 
-                selected_id = Medicament.fromMap(meds[position]).id_medicament;
+                selected_id = Join_med_detail.fromMap(join_med[position]).id_medicament;
                 print('id delectionne $selected_id');
                 med_det = await dbmanager.getMed(selected_id);
                 medi_detail_det = await dbmanager.getMedDetail(selected_id);

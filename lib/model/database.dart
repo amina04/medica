@@ -121,6 +121,13 @@ class Dbmedica {
     );
   }
 
+  //aficher tout les medicaments et ses details
+  Future<List> getAllJoinMedDetail() async {
+    var dbMedicament = await db;
+    var result = await dbMedicament.rawQuery("SELECT * FROM $tableMed INNER JOIN $tabledetailMed ON $columnId_med=$FKmedId");
+    return result.toList();
+  }
+
 //CRUD CREATE READ UPDATE DELETE
   //==============================CRUD MEDICAMENT1 ================================================================
 //insirer fonction

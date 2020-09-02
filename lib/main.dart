@@ -24,6 +24,8 @@ List meds;
 List patient_list;
 List poche_list;
 List meds_detail;
+//=============
+List join_med;
 //utilisée dans list view pour le item selectionner a le id de item
 Medicament med_det, med_modif, med_search;
 Detail_medicament medi_detail_det;
@@ -88,6 +90,9 @@ void main() async {
   poche_list = await dbmanager.getAllPoches();
   //med_det = await dbmanager.getMed(selected_id);
   meds_detail = await dbmanager.getAllDetailMed();
+  //===========================================
+  join_med=await dbmanager.getAllJoinMedDetail();
+  //========================================
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
     if (kReleaseMode) exit(1);
