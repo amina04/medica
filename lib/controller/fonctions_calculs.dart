@@ -73,7 +73,9 @@ double Reliquat() {
 }
 
 //la fonction qui choisit la meilleure poche
-int ChoisirPoche({double cmax, double cmin}) {
+int ChoisirPoche() {
+  double cmax=c_max_jcombobox_selcted;
+  double cmin =c_min_jcombobox_selcted;
   double dose = Dose_a_administrer();
   double poche_min = dose / cmin;
   double poche_max = dose / cmax;

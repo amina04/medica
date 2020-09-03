@@ -18,7 +18,7 @@ class _Step3State extends State<Step3> {
   double volume = Volume_finale();
   int nbr_flacon = Nbr_flacon();
   double reliquat = Reliquat();
-  int poche = ChoisirPoche(cmax: 10, cmin: 1);
+  int poche = ChoisirPoche();
   @override
   Widget build(BuildContext context) {
     return Column(

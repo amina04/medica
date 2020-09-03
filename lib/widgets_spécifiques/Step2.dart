@@ -48,6 +48,7 @@ class _Step2State extends State<Step2> {
               future: dbmanager.getAllMed(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  meds = snapshot.data;
                   return DropdownButton<String>(
                     items: getDropDownItem(),
                     value: selected_item,
@@ -66,7 +67,10 @@ class _Step2State extends State<Step2> {
 
                       medi_detail_det=await dbmanager.getMedDetail(id_med);
                       ci_jcombobox_selected = medi_detail_det.c_init;
+                      c_max_jcombobox_selcted =medi_detail_det.c_max;
+                      c_min_jcombobox_selcted =medi_detail_det.c_min;
                       volume_flcn_jcombobox_selected =med_search.volume_flacon;
+
                       print(' detail pres $ci_jcombobox_selected  volume flacon $volume_flcn_jcombobox_selected');
                     },
                   );

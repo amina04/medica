@@ -32,6 +32,8 @@ Detail_medicament medi_detail_det;
 Patient patient_det, patient_search;
 double ci_jcombobox_selected;
 double volume_flcn_jcombobox_selected;
+double c_min_jcombobox_selcted;
+double c_max_jcombobox_selcted;
 int selected_id;
 int selected_id_patient;
 int updated_id;
