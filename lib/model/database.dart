@@ -100,25 +100,33 @@ class Dbmedica {
       "CREATE TABLE $tabledetailMed($columnNom_labo TEXT,$columnPresenatation REAL,$columnPrix INTEGER,$columnCni REAL,$columnCmin REAL,$columnCmax REAL, $columnVolume_apr_pre REAL,$column_verre_4 INTEGER,$column_verre_25 INTEGER,$column_PVC_25 INTEGER,$FKmedId INTEGER, FOREIGN KEY($FKmedId ) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
     );
     debugPrint(' detail medicament OnCreate');
-    /*
-    //table solution
-    await db.execute(
-      "CREATE TABLE $tablesolution($columnIdSolution INTEGER PRIMARY KEY autoincrement,$columnDatePreparation DATE,$columnPosologie REAL,$columnReduction INTEGER,$columnDoseAdministrer REAL,$columnVolumeFinale REAL,$FKmedId  INTEGER, FOREIGN KEY($FKmedId ) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE,$FKpoche INTEGER, FOREIGN KEY($FKpoche) REFERENCES $tablePoches($columnPoche) ON DELETE CASCADE,$FKpatientId INTEGER, FOREIGN KEY($FKpatientId) REFERENCES $tablepatient($columnIdPatient) ON DELETE CASCADE)",
-    );
-    //table calculs
-    await db.execute(
-      "CREATE TABLE $tableCalculs($columnReliquat REAL,$columnQte_consomme REAL,$FKmedId INTEGER, FOREIGN KEY($FKmedId) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE,$FKDatePre INTEGER, FOREIGN KEY($FKDatePre) REFERENCES $tableMed($columnDatePreparation) ON DELETE CASCADE)",
-    );
-*/
     //table Patient
     await db.execute(
       "CREATE TABLE $tablepatient($columnIdPatient INTEGER PRIMARY KEY autoincrement,$columnNom_patient TEXT, $columnPrenom_patient TEXT,$columnTaille INTEGER,$columnPoids INTEGER,$columnSurfaceCoporelle REAL)",
     );
-
+    debugPrint('  patient OnCreate');
     //table poches
     await db.execute(
       "CREATE TABLE $tablePoches($columnPoche INTEGER PRIMARY KEY autoincrement,$columnVolumePoche INTEGER)",
     );
+    debugPrint(' poches OnCreate');
+    //table solution
+
+   /* await db.execute(
+      "CREATE TABLE $tablesolution($columnIdSolution INTEGER PRIMARY KEY autoincrement,$columnDatePreparation TEXT,$columnPosologie REAL,$columnReduction INTEGER,$columnDoseAdministrer REAL,$columnVolumeFinale REAL,$FKmedId INTEGER, FOREIGN KEY($FKmedId ) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE,$FKpoche INTEGER, FOREIGN KEY($FKpoche) REFERENCES $tablePoches($columnPoche) ON DELETE CASCADE,$FKpatientId INTEGER, FOREIGN KEY($FKpatientId) REFERENCES $tablepatient($columnIdPatient) ON DELETE CASCADE)",
+    );
+    debugPrint(' detail solution OnCreate');*/
+    await db.execute(
+      "CREATE TABLE $tablesolution($columnIdSolution INTEGER PRIMARY KEY autoincrement,$columnDatePreparation TEXT,$columnPosologie REAL,$columnReduction INTEGER,$columnDoseAdministrer REAL,$columnVolumeFinale REAL,$FKpatientId INTEGER,$FKpoche INTEGER,$FKmedId INTEGER, FOREIGN KEY($FKmedId ) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
+    );
+    debugPrint(' detail solution OnCreate');
+    /*
+    //table calculs
+    await db.execute(
+      "CREATE TABLE $tableCalculs($columnReliquat REAL,$columnQte_consomme REAL,$FKmedId INTEGER, FOREIGN KEY($FKmedId) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE,$FKDatePre INTEGER, FOREIGN KEY($FKDatePre) REFERENCES $tablesolution($columnDatePreparation) ON DELETE CASCADE)",
+    );
+*/
+
   }
 
   //aficher tout les medicaments et ses details
@@ -270,7 +278,7 @@ class Dbmedica {
             where: "$columnIdPatient = ?", whereArgs: [pat.id_patient]);
   }
 
-/*
+
 
   //==============================CRUD solution 4================================================================
 //insirer fonction
@@ -285,6 +293,15 @@ class Dbmedica {
     var dbMedicament = await db;
     var result = await dbMedicament.rawQuery("SELECT * FROM $tablesolution");
     return result.toList();
+  }
+//afficher un solution
+  //on chercher par clé etranger de patient
+  Future<Solution> getSolution(int id) async {
+    var dbMedicament = await db;
+    var result = await dbMedicament
+        .rawQuery("SELECT * FROM $tablesolution WHERE $FKpatientId =$id");
+    if (result.length == 0) return null;
+    return new Solution.fromMap(result.first);
   }
 
   //supprimer
@@ -303,7 +320,7 @@ class Dbmedica {
         .update(tablesolution, sol.toMap(),
             where: "$columnIdSolution = ?", whereArgs: [sol.id_solution]);
   }
-*/
+
   //==============================CRUD poches 5================================================================
 //insirer fonction
   Future<int> insertPoches(Poches poch) async {

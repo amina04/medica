@@ -87,43 +87,10 @@ class _list_history extends State<list_history> {
                     Patient.fromMap(patient_list[position]).id_patient;
 
                 patient_det = await dbmanager.getPatient(selected_id_patient);
-              },
+                solution_selectione = await dbmanager.getSolution(selected_id_patient)  ;           },
             ),
           );
         });
   }
-  /*
-  ListView _buildlistview() {
-    return ListView.builder(
-        itemCount: 10,
-        itemBuilder: (_, index) {
-          return Card(
-            child: ListTile(
-              title: Text(
-                'patient $index',
-                style: kresultliststyle,
-              ),
-              //un sous titre
-              subtitle: Text(
-                '20/02/2020',
-                style: klabelTextStyle,
-              ),
-              //l icon a droite
-              leading: Icon(
-                Icons.person,
-                size: 35.0,
-              ),
-              // l icon a gauche
-              trailing: Icon(
-                Icons.arrow_forward,
-                size: 35.0,
-                color: Colors.lightBlueAccent,
-              ),
-              onTap: () {
-                Navigator.pushNamed(context, Detail_patient.id);
-              },
-            ),
-          );
-        });
-  }*/
+
 }

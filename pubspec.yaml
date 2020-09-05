@@ -25,6 +25,7 @@ dependencies:
   curved_navigation_bar: ^0.1.2
   animated_text_kit: ^2.2.0
   rflutter_alert: ^1.0.3
+  intl: ^0.16.1
   flutter:
     sdk: flutter
 

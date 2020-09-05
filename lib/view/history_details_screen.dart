@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medica/constantes.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:medica/model/database.dart';
@@ -7,6 +8,7 @@ import '../main.dart';
 
 class Detail_patient extends StatefulWidget {
   static String id = 'Detail_patient';
+
 
   @override
   _Detail_patient createState() => _Detail_patient();
@@ -19,6 +21,11 @@ class _Detail_patient extends State<Detail_patient> {
   String Nom_patient = patient_det.Nom_patient;
   String Prenom_patient = patient_det.Prenom_patient;
   double surface_coporelle = patient_det.surface_coporelle;
+  String date =solution_selectione.date_preparation;
+  double dose =solution_selectione.dose_administrer;
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +94,7 @@ class _Detail_patient extends State<Detail_patient> {
                     width: 10.0,
                   ),
                   Text(
-                    ' 22/02/2020',
+                    '$date',
                     style: kresultliststyle,
                   ),
                 ],
@@ -105,7 +112,7 @@ class _Detail_patient extends State<Detail_patient> {
                     width: 10.0,
                   ),
                   Text(
-                    '0.3 mg/ml',
+                    '$dose mg/ml',
                     style: kresultliststyle,
                   ),
                 ],

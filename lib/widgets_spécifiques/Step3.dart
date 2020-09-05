@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medica/controller/calcul_step2_controller.dart';
 import 'package:medica/controller/fonctions_calculs.dart';
 import 'package:medica/model/model_tableaux/patient.dart';
+import 'package:medica/model/model_tableaux/solution.dart';
 import '../constantes.dart';
 import 'package:medica/controller/calcul_step1_controller.dart';
 import 'package:medica/model/database.dart';
@@ -115,18 +117,42 @@ class _Step3State extends State<Step3> {
               "sauvegarder",
               style: kbuttonTextStyle,
             ),
-            onPressed: () {
+            onPressed: () async {
               //clock
+              //chnger format de date
+              var newFormat = DateFormat("yyyy-MM-dd H:m");
+              String time = newFormat.format(DateTime.now());
 
-              String time = DateTime.now().toIso8601String();
               print('time DateTime.now() $time');
               //insirer patient
-              dbmanager.insertPatient(new Patient(
-                nom_patient_ctrl.text,
-                prenom_patient_ctrl.text,
-                height,
-                weight,
-                double.parse(surface_coporelle_ctrl.text),
+              int id_patient_search;
+              if(patient_search== null){
+               id_patient_search= await  dbmanager.insertPatient(new Patient(
+                  nom_patient_ctrl.text,
+                  prenom_patient_ctrl.text,
+                  height,
+                  weight,
+                  double.parse(surface_coporelle_ctrl.text),
+                ));
+              }else{
+                 id_patient_search =patient_search.id_patient;
+              }
+
+              int id_poche_choisi;
+              if(ChoisirPoche()==250){
+                id_poche_choisi =1;
+              }else{
+                id_poche_choisi =2;
+              }
+              dbmanager.insertSolution(new Solution(
+              time,
+                double.parse(posologie_ctrl.text),
+                int.parse(reduction_ctrl.text),
+                dose,
+                volume,
+                  id_med_jcombobox,
+                id_poche_choisi,
+                 id_patient_search,
               ));
               //clean textfields
               setState(() {
@@ -138,6 +164,7 @@ class _Step3State extends State<Step3> {
                 posologie_ctrl.clear();
                 reduction_ctrl.clear();
               });
+              patient_search=null;
             }),
       ],
     );
