@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:medica/controller/add_med_controller.dart';
+import 'package:medica/controller/calcul_step1_controller.dart';
 import 'package:medica/model/database.dart';
+import 'package:medica/model/model_tableaux/join_patient_solution.dart';
 import 'package:medica/model/model_tableaux/medicament.dart';
 import 'package:medica/view/add_med_screen.dart';
 import 'package:medica/view/calculer_la_dose_screen.dart';
@@ -15,6 +17,7 @@ import 'package:medica/view/list_med_screen.dart';
 import 'package:medica/view/menu.dart';
 import 'package:medica/view/medicament_details_screen.dart';
 
+import 'model/model_tableaux/calculs.dart';
 import 'model/model_tableaux/détails_med.dart';
 import 'model/model_tableaux/patient.dart';
 import 'model/model_tableaux/poches.dart';
@@ -27,11 +30,14 @@ List poche_list;
 List meds_detail;
 //=============
 List join_med;
+List join_pat_sol_list;
 //utilisée dans list view pour le item selectionner a le id de item
 Medicament med_det, med_modif, med_search;
 Detail_medicament medi_detail_det;
 Patient patient_det, patient_search;
 Solution solution_selectione;
+Calculs calcul_selectionne;
+
 double ci_jcombobox_selected;
 double volume_flcn_jcombobox_selected;
 double c_min_jcombobox_selcted;
@@ -97,6 +103,7 @@ void main() async {
   meds_detail = await dbmanager.getAllDetailMed();
   //===========================================
   join_med=await dbmanager.getAllJoinMedDetail();
+  join_pat_sol_list =await dbmanager.getAllJoinPatSol();
   //========================================
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);

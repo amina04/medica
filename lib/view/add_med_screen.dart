@@ -364,7 +364,7 @@ class _Add_med extends State<Add_med> {
                   //ajouter un medicament
                   int res = await dbmanager.insertMedicament(new Medicament(
                       nom_med_ctrl.text,
-                      double.parse(qte_disponible_ctrl.text),
+                      int.parse(qte_disponible_ctrl.text),
                       double.parse(volum_flcn_ctrl.text)));
                   print("id medicament $res");
 

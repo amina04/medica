@@ -23,7 +23,7 @@ class _Detail_patient extends State<Detail_patient> {
   double surface_coporelle = patient_det.surface_coporelle;
   String date =solution_selectione.date_preparation;
   double dose =solution_selectione.dose_administrer;
-
+double reliquat =calcul_selectionne.reliquat;
 
 
   @override
@@ -130,7 +130,7 @@ class _Detail_patient extends State<Detail_patient> {
                     width: 10.0,
                   ),
                   Text(
-                    '0.75 mg/ml',
+                    '$reliquat mg/ml',
                     style: kresultliststyle,
                   ),
                 ],

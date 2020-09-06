@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medica/controller/calcul_step2_controller.dart';
 import 'package:medica/controller/fonctions_calculs.dart';
+import 'package:medica/model/model_tableaux/calculs.dart';
 import 'package:medica/model/model_tableaux/patient.dart';
 import 'package:medica/model/model_tableaux/solution.dart';
 import '../constantes.dart';
@@ -15,6 +16,16 @@ class Step3 extends StatefulWidget {
 }
 
 class _Step3State extends State<Step3> {
+  String selected_currency = 'Flacon verre 4';
+  List <DropdownMenuItem> getDropDownItems (){
+    List<DropdownMenuItem<String>> DropDownItem =[];
+    for(int i=0;i<currentList.length;i++){
+    String currency =currentList[i];
+   var newItem= DropdownMenuItem(child: Text(currency),value: currency,);
+   DropDownItem.add(newItem);
+  }
+    return DropDownItem;
+  }
   var dbmanager = new Dbmedica();
   double dose = Dose_a_administrer();
   double volume = Volume_finale();
@@ -108,6 +119,22 @@ class _Step3State extends State<Step3> {
         SizedBox(
           height: 40.0,
         ),
+        Column(children: [
+          Text('les conditions de conservation :', style: klabelTextStyle),
+          SizedBox(
+            width: 20.0,
+          ),
+DropdownButton<String>(
+  value: selected_currency,
+items: getDropDownItems(),
+
+
+onChanged: (value){
+  setState(() {
+    selected_currency =value;
+  });
+},)
+        ],),
         RaisedButton(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15.0),
             color: Colors.lightBlueAccent,
@@ -144,6 +171,9 @@ class _Step3State extends State<Step3> {
               }else{
                 id_poche_choisi =2;
               }
+              //extrait stabilité
+             int stblt= stabilite(selected_currency, medi_detail_det);
+
               dbmanager.insertSolution(new Solution(
               time,
                 double.parse(posologie_ctrl.text),
@@ -154,6 +184,13 @@ class _Step3State extends State<Step3> {
                 id_poche_choisi,
                  id_patient_search,
               ));
+             int res=await dbmanager.insertcalculs(new Calculs(
+                reliquat,nbr_flacon,stblt,id_med_jcombobox,time,
+              ));
+
+
+              //modifier la qte disponible une fonction
+             modifier_qte_disponible(nbr_flacon,context);
               //clean textfields
               setState(() {
                 nom_patient_ctrl.clear();

@@ -15,3 +15,4 @@ const ksubtitleliststyle =
     TextStyle(fontSize: 17, color: Colors.black54, fontWeight: FontWeight.w500);
 const kresultliststyle =
     TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w400);
+const List<String> currentList=['Flacon verre 4','Flacon verre 25','PVC 25'];

@@ -4,7 +4,7 @@ class Medicament {
   //les colones de table student
   int _id_medicament;
   String _nom;
-  double _qte_disponible;
+  int _qte_disponible;
   double _volume_flacon;
   //un constructeur pour remplir le table
   Medicament(
@@ -23,7 +23,7 @@ class Medicament {
   //car les champs sont privée en met ca pour faciliter l acceder a eux
   int get id_medicament => _id_medicament;
   String get nom => _nom;
-  double get qte_disponible => _qte_disponible;
+  int get qte_disponible => _qte_disponible;
   double get volume_flacon => _volume_flacon;
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();

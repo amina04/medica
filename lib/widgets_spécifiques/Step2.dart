@@ -15,6 +15,7 @@ class Step2 extends StatefulWidget {
 class _Step2State extends State<Step2> {
   var dbmanager = new Dbmedica();
 
+
   List<DropdownMenuItem> getDropDownItem() {
     List<DropdownMenuItem<String>> dropdownitems = [];
     for (int i = 0; i < meds.length; i++) {

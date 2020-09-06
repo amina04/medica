@@ -4,7 +4,7 @@ class Join_med_detail {
   //les colones de table student
   int _id_medicament;
   String _nom;
-  double _qte_disponible;
+  int _qte_disponible;
   double _volume_flacon;
   String _nom_labo;
   double _presentation;
@@ -57,7 +57,7 @@ class Join_med_detail {
   //car les champs sont privée en met ca pour faciliter l acceder a eux
   int get id_medicament => _id_medicament;
   String get nom => _nom;
-  double get qte_disponible => _qte_disponible;
+  int get qte_disponible => _qte_disponible;
   double get volume_flacon => _volume_flacon;
   String get nom_labo => _nom_labo;
   double get presentation => _presentation;

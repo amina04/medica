@@ -1,6 +1,12 @@
 //la fonction qui calcule la dose a administrer
 
+
 import 'package:medica/controller/calcul_step2_controller.dart';
+import 'package:medica/model/database.dart';
+import 'package:medica/model/model_tableaux/d%C3%A9tails_med.dart';
+import 'package:medica/model/model_tableaux/medicament.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 
 import '../main.dart';
 import 'calcul_step1_controller.dart';
@@ -88,4 +94,41 @@ double Prix_reliquat_pirimi({double prix, double dose}) {
   double res;
   res = (prix * dose);
   return res;
+}
+//la fonction qui changé la qte disponible
+void modifier_qte_disponible(int nbr_flacon,var context ){
+  var dbmanager = new Dbmedica();
+  int qteDisp =med_search.qte_disponible;
+  int new_qte =qteDisp-nbr_flacon;
+  int new_qte_consomm =qteDisp+nbr_flacon;
+  if(new_qte<0){
+
+    Alert(
+        context: context,
+        title: "ATTENTION",
+        desc: "La quantité disponible est insuffisante")
+        .show();
+  }else{
+    Medicament medUpdated = Medicament.fromMap({
+      "nom": med_search.nom,
+      "qte_disponible": new_qte,
+      "volume_flacon": med_search.volume_flacon,
+      "id_medicament": med_search.id_medicament,
+    });
+     dbmanager.modifierMed(medUpdated);
+  }
+}
+//extrait la stabilite
+int stabilite(String selected_curr,Detail_medicament medi_detail)
+{
+  int stabilite;
+  if(selected_curr=='Flacon verre 4'){
+    stabilite=  medi_detail.verre_4;
+  }if(selected_curr=='Flacon verre 25'){
+    stabilite=  medi_detail.verre_25;
+  }
+  if(selected_curr=='PVC 25'){
+    stabilite=  medi_detail.PVC_25;
+  }
+  return stabilite;
 }

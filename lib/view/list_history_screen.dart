@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medica/constantes.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:medica/model/database.dart';
+import 'package:medica/model/model_tableaux/join_patient_solution.dart';
 import 'package:medica/model/model_tableaux/patient.dart';
 import 'package:medica/view/medicament_details_screen.dart';
 import 'add_med_screen.dart';
@@ -26,10 +27,10 @@ class _list_history extends State<list_history> {
             LinearGradient(colors: [Colors.lightBlueAccent, Colors.tealAccent]),
       ),
       body: FutureBuilder(
-        future: dbmanager.getAllpatient(),
+        future: dbmanager.getAllJoinPatSol(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            patient_list = snapshot.data;
+            join_pat_sol_list = snapshot.data;
             return _buildlistview();
           }
           return new CircularProgressIndicator();
@@ -41,21 +42,21 @@ class _list_history extends State<list_history> {
   //la methode buildlist view
   ListView _buildlistview() {
     return ListView.builder(
-        itemCount: patient_list == null ? 0 : patient_list.length,
+        itemCount: join_pat_sol_list == null ? 0 : join_pat_sol_list.length,
         itemBuilder: (BuildContext context, int position) {
           return Card(
             child: ListTile(
               title: Row(
                 children: <Widget>[
                   Text(
-                    '${Patient.fromMap(patient_list[position]).Nom_patient}',
+                    '${Join_patient_solution.fromMap(join_pat_sol_list[position]).Nom_patient}',
                     style: kresultliststyle,
                   ),
                   SizedBox(
                     height: 10.0,
                   ),
                   Text(
-                    ' ${Patient.fromMap(patient_list[position]).Prenom_patient}',
+                    ' ${Join_patient_solution.fromMap(join_pat_sol_list[position]).Prenom_patient}',
                     style: kresultliststyle,
                   ),
                 ],
@@ -63,7 +64,7 @@ class _list_history extends State<list_history> {
               //un sous titre
               //un sous titre
               subtitle: Text(
-                '20/02/2020',
+                '${Join_patient_solution.fromMap(join_pat_sol_list[position]).date_preparation}',
                 style: klabelTextStyle,
               ),
               //l icon a droite
@@ -84,10 +85,15 @@ class _list_history extends State<list_history> {
                     MaterialPageRoute(builder: (context) => Detail_patient()));
 
                 selected_id_patient =
-                    Patient.fromMap(patient_list[position]).id_patient;
+                    Join_patient_solution.fromMap(join_pat_sol_list[position]).id_patient;
 
                 patient_det = await dbmanager.getPatient(selected_id_patient);
-                solution_selectione = await dbmanager.getSolution(selected_id_patient)  ;           },
+                solution_selectione = await dbmanager.getSolution(selected_id_patient)  ;
+                int med_id_calc =solution_selectione.FKmedId;
+                String date_pre_calc =solution_selectione.date_preparation;
+              calcul_selectionne = await dbmanager.getCalculs(med_id_calc,date_pre_calc);
+                print(calcul_selectionne.FKDatePre);
+                },
             ),
           );
         });

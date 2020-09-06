@@ -63,6 +63,7 @@ class Dbmedica {
   final String tableCalculs = 'tableCalculs';
   final String columnReliquat = 'reliquat';
   final String columnQte_consomme = 'qte_consomme';
+  final String columnStabilite = 'stabilite';
   //les cle etrangers========================================================
   final String FKmedId = 'FKmedId';
   final String FKpoche = 'FKpoche';
@@ -91,7 +92,7 @@ class Dbmedica {
     debugPrint('Database OnCreate');
     //table medicament
     await db.execute(
-      "CREATE TABLE $tableMed($columnId_med INTEGER PRIMARY KEY , $columnNom TEXT , $columnQte_disponible REAL , $columnVolume_flacon REAL)",
+      "CREATE TABLE $tableMed($columnId_med INTEGER PRIMARY KEY , $columnNom TEXT , $columnQte_disponible INTEGER , $columnVolume_flacon REAL)",
     );
     debugPrint('table  medicament OnCreate');
 
@@ -112,20 +113,17 @@ class Dbmedica {
     debugPrint(' poches OnCreate');
     //table solution
 
-   /* await db.execute(
-      "CREATE TABLE $tablesolution($columnIdSolution INTEGER PRIMARY KEY autoincrement,$columnDatePreparation TEXT,$columnPosologie REAL,$columnReduction INTEGER,$columnDoseAdministrer REAL,$columnVolumeFinale REAL,$FKmedId INTEGER, FOREIGN KEY($FKmedId ) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE,$FKpoche INTEGER, FOREIGN KEY($FKpoche) REFERENCES $tablePoches($columnPoche) ON DELETE CASCADE,$FKpatientId INTEGER, FOREIGN KEY($FKpatientId) REFERENCES $tablepatient($columnIdPatient) ON DELETE CASCADE)",
-    );
-    debugPrint(' detail solution OnCreate');*/
+
     await db.execute(
       "CREATE TABLE $tablesolution($columnIdSolution INTEGER PRIMARY KEY autoincrement,$columnDatePreparation TEXT,$columnPosologie REAL,$columnReduction INTEGER,$columnDoseAdministrer REAL,$columnVolumeFinale REAL,$FKpatientId INTEGER,$FKpoche INTEGER,$FKmedId INTEGER, FOREIGN KEY($FKmedId ) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
     );
-    debugPrint(' detail solution OnCreate');
-    /*
+    debugPrint('  solution OnCreate');
+
     //table calculs
     await db.execute(
-      "CREATE TABLE $tableCalculs($columnReliquat REAL,$columnQte_consomme REAL,$FKmedId INTEGER, FOREIGN KEY($FKmedId) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE,$FKDatePre INTEGER, FOREIGN KEY($FKDatePre) REFERENCES $tablesolution($columnDatePreparation) ON DELETE CASCADE)",
+      "CREATE TABLE $tableCalculs($columnReliquat REAL,$columnQte_consomme INTEGER,$columnStabilite INTEGER,$FKDatePre TEXT,$FKmedId INTEGER, FOREIGN KEY($FKmedId) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
     );
-*/
+    debugPrint(' calcul OnCreate');
 
   }
 
@@ -133,6 +131,12 @@ class Dbmedica {
   Future<List> getAllJoinMedDetail() async {
     var dbMedicament = await db;
     var result = await dbMedicament.rawQuery("SELECT * FROM $tableMed INNER JOIN $tabledetailMed ON $columnId_med=$FKmedId");
+    return result.toList();
+  }
+  //aficher tout les medicaments et ses details
+  Future<List> getAllJoinPatSol() async {
+    var dbMedicament = await db;
+    var result = await dbMedicament.rawQuery("SELECT * FROM $tablepatient INNER JOIN $tablesolution ON $columnIdPatient=$FKpatientId");
     return result.toList();
   }
 
@@ -353,7 +357,7 @@ class Dbmedica {
             where: "$columnPoche = ?", whereArgs: [poch.poche]);
   }
 
-/*
+
   //==============================CRUD calculs 6================================================================
 //insirer fonction
   Future<int> insertcalculs(Calculs cal) async {
@@ -374,12 +378,21 @@ class Dbmedica {
     var dbMedicament = await db;
     return await dbMedicament
         //? veut dire que on le connait pas pour le moment
-        .delete(tableCalculs, where: "$FKDatePre= ?", whereArgs: [id]);
+        .delete(tableCalculs, where: "$FKmedId= ?", whereArgs: [id]);
   }
-*/
+  //afficher un calcul
+  Future<Calculs> getCalculs(int id,String date_pre) async {
+    var dbMedicament = await db;
+    var result = await dbMedicament
+        .rawQuery("SELECT * FROM $tableCalculs WHERE $FKmedId =$id AND $FKDatePre LIKE '$date_pre'");
+    if (result.length == 0) return null;
+    return new Calculs.fromMap(result.first);
+  }
+
   //fermer la bese des donnee
   Future fermer() async {
     var dbMedicament = await db;
     return dbMedicament.close();
   }
+
 }

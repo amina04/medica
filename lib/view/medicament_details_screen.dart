@@ -26,7 +26,7 @@ class _Detail_med extends State<Detail_med> {
 //remplir les variable apartir de variable meds qui est de type medicament qui est initialiser dans list med screen
   String nom_medicament = med_det.nom;
   double volume_flcn = med_det.volume_flacon;
-  double qte_disponible = med_det.qte_disponible;
+  int qte_disponible = med_det.qte_disponible;
   String nom_labo = medi_detail_det.nom_labo;
   double presentation = medi_detail_det.presentation;
   int prix = medi_detail_det.prix;
