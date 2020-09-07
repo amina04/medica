@@ -1,6 +1,7 @@
 //la fonction qui calcule la dose a administrer
 
 
+import 'package:intl/intl.dart';
 import 'package:medica/controller/calcul_step2_controller.dart';
 import 'package:medica/model/database.dart';
 import 'package:medica/model/model_tableaux/d%C3%A9tails_med.dart';
@@ -131,4 +132,28 @@ int stabilite(String selected_curr,Detail_medicament medi_detail)
     stabilite=  medi_detail.PVC_25;
   }
   return stabilite;
+}
+String etat_reliquat(int stabilite, String date_pre)
+{
+  String etat;
+  DateTime parseDt = DateTime.parse(date_pre);
+//la  date d 'ajourdhui
+  var newFormat = DateFormat("yyyy-MM-dd HH:mm");
+  String time_now = newFormat.format(DateTime.now());
+  //changer au tye date
+  DateTime time_noww = DateTime.parse(time_now);
+  //ajouter stabilite a date preparation
+  print('$stabilite');
+  parseDt.subtract(Duration(days:parseDt.day, hours:parseDt.hour, minutes:parseDt.minute));
+  //ajouter a lancienne heure stabilite
+  var newDate = new DateTime(parseDt.year, parseDt.month,parseDt.day,parseDt.hour+stabilite,parseDt.minute);
+  //tester
+print(newDate.hour);
+  if(newDate.isAfter(time_noww)){
+    etat=' non périmée';
+    return etat;
+  }else{
+    etat=' périmée';
+    return etat;
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:medica/constantes.dart';
+import 'package:medica/controller/fonctions_calculs.dart';
 import 'package:medica/model/database.dart';
 import 'package:medica/model/model_tableaux/join_med_calc_sol.dart';
 
@@ -61,7 +62,7 @@ ListView _buildlistview() {
                       width: 10.0,
                     ),
                     Text(
-                      'périmée',
+                      etat_reliquat(Join_med_calc_sol.fromMap(debut_journee[position]).stabilite,Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation),
                       style: klabelTextStyle,
                     ),
                   ],

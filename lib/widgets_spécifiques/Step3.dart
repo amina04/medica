@@ -148,7 +148,7 @@ onChanged: (value){
             onPressed: () async {
               //clock
               //chnger format de date
-              var newFormat = DateFormat("yyyy-MM-dd H:m");
+              var newFormat = DateFormat("yyyy-MM-dd HH:mm");
               String time = newFormat.format(DateTime.now());
 
               print('time DateTime.now() $time');
