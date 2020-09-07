@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:medica/constantes.dart';
+import 'package:medica/model/database.dart';
+import 'package:medica/model/model_tableaux/join_med_calc_sol.dart';
+
+import '../main.dart';
 
 class Debut_journee extends StatefulWidget {
   static String id = 'Debut_journee';
@@ -10,6 +14,7 @@ class Debut_journee extends StatefulWidget {
 }
 
 class _Debut_journeeState extends State<Debut_journee> {
+  var dbmanager = new Dbmedica();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,95 +25,63 @@ class _Debut_journeeState extends State<Debut_journee> {
             LinearGradient(colors: [Colors.lightBlueAccent, Colors.tealAccent]),
       ),
       //Navigateur Bar
-      body: Center(
-        child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (_, index) {
-              return Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: ListTile(
-                    title: Text(
-                      'médicament $index',
-                      style: kresultliststyle,
-                    ),
-                    //un sous titre
-                    subtitle: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              'Etat :',
-                              style: klabelTextStyle,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'périmée',
-                              style: klabelTextStyle,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              'date :',
-                              style: klabelTextStyle,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              '19/10/2019',
-                              style: klabelTextStyle,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              'Fellahi',
-                              style: klabelTextStyle,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'Mouna',
-                              style: klabelTextStyle,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              'Quantité :',
-                              style: klabelTextStyle,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              '20',
-                              style: klabelTextStyle,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'ml',
-                              style: klabelTextStyle,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }),
+      body:  FutureBuilder(
+        future: dbmanager.getAllJoinMedSolCalc(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            debut_journee = snapshot.data;
+            return _buildlistview();
+          }
+          return new CircularProgressIndicator();
+        },
       ),
     );
   }
+}
+ListView _buildlistview() {
+  return ListView.builder(
+      itemCount: debut_journee == null ? 0 : debut_journee.length,
+      itemBuilder: (BuildContext context, int position) {
+        return Card(
+          child: ListTile(
+            title: Text(
+              'médicament ${Join_med_calc_sol.fromMap(debut_journee[position]).nom}',
+              style: kresultliststyle,
+            ),
+//un sous titre
+            subtitle: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(
+                      'Etat :',
+                      style: klabelTextStyle,
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Text(
+                      'périmée',
+                      style: klabelTextStyle,
+                    ),
+                  ],
+                ),
+
+                    Text(
+                      'date : ${Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation}',
+                      style: klabelTextStyle,
+                    ),
+
+
+                    Text(
+                      'Quantité : ${Join_med_calc_sol.fromMap(debut_journee[position]).reliquat} ml',
+                      style: klabelTextStyle,
+                    ),
+
+
+              ],
+            ),
+          ),
+        );
+      });
 }

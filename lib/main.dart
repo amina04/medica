@@ -28,6 +28,8 @@ List meds;
 List patient_list;
 List poche_list;
 List meds_detail;
+List debut_journee;
+List fin_journee;
 //=============
 List join_med;
 List join_pat_sol_list;
@@ -104,6 +106,9 @@ void main() async {
   //===========================================
   join_med=await dbmanager.getAllJoinMedDetail();
   join_pat_sol_list =await dbmanager.getAllJoinPatSol();
+  debut_journee = await dbmanager.getAllJoinMedSolCalc();
+  fin_journee = await dbmanager.getAllJoinMedCalc();
+
   //========================================
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);

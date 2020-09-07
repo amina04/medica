@@ -66,6 +66,7 @@ class Dbmedica {
   final String columnStabilite = 'stabilite';
   //les cle etrangers========================================================
   final String FKmedId = 'FKmedId';
+  final String FKmedId2 = 'FKmedId2';
   final String FKpoche = 'FKpoche';
   final String FKpatientId = 'FKpatientId';
   final String FKDatePre = 'FKDatePre';
@@ -121,7 +122,7 @@ class Dbmedica {
 
     //table calculs
     await db.execute(
-      "CREATE TABLE $tableCalculs($columnReliquat REAL,$columnQte_consomme INTEGER,$columnStabilite INTEGER,$FKDatePre TEXT,$FKmedId INTEGER, FOREIGN KEY($FKmedId) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
+      "CREATE TABLE $tableCalculs($columnReliquat REAL,$columnQte_consomme INTEGER,$columnStabilite INTEGER,$FKDatePre TEXT,$FKmedId2 INTEGER, FOREIGN KEY($FKmedId2) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
     );
     debugPrint(' calcul OnCreate');
 
@@ -137,6 +138,18 @@ class Dbmedica {
   Future<List> getAllJoinPatSol() async {
     var dbMedicament = await db;
     var result = await dbMedicament.rawQuery("SELECT * FROM $tablepatient INNER JOIN $tablesolution ON $columnIdPatient=$FKpatientId");
+    return result.toList();
+  }
+//jointure medicament calculs solution
+  Future<List> getAllJoinMedSolCalc() async {
+    var dbMedicament = await db;
+    var result = await dbMedicament.rawQuery("SELECT * FROM (($tableMed INNER JOIN $tablesolution ON $columnId_med=$FKmedId)INNER JOIN $tableCalculs ON ($columnId_med =$FKmedId2 AND $columnDatePreparation LIKE $FKDatePre))");
+    return result.toList();
+  }
+  //jointure medicament et calculs pour fin journée
+  Future<List> getAllJoinMedCalc() async {
+    var dbMedicament = await db;
+    var result = await dbMedicament.rawQuery("SELECT * FROM $tableMed INNER JOIN $tableCalculs ON $FKmedId2=$columnId_med");
     return result.toList();
   }
 
@@ -373,18 +386,12 @@ class Dbmedica {
     return result.toList();
   }
 
-  //supprimer
-  Future<int> supprimerCalculs(int id) async {
-    var dbMedicament = await db;
-    return await dbMedicament
-        //? veut dire que on le connait pas pour le moment
-        .delete(tableCalculs, where: "$FKmedId= ?", whereArgs: [id]);
-  }
+
   //afficher un calcul
   Future<Calculs> getCalculs(int id,String date_pre) async {
     var dbMedicament = await db;
     var result = await dbMedicament
-        .rawQuery("SELECT * FROM $tableCalculs WHERE $FKmedId =$id AND $FKDatePre LIKE '$date_pre'");
+        .rawQuery("SELECT * FROM $tableCalculs WHERE $FKmedId2 =$id AND $FKDatePre LIKE '$date_pre'");
     if (result.length == 0) return null;
     return new Calculs.fromMap(result.first);
   }

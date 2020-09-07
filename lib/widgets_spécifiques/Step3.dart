@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:medica/controller/calcul_step2_controller.dart';
 import 'package:medica/controller/fonctions_calculs.dart';
 import 'package:medica/model/model_tableaux/calculs.dart';
+import 'package:medica/model/model_tableaux/join_med_calc_sol.dart';
 import 'package:medica/model/model_tableaux/patient.dart';
 import 'package:medica/model/model_tableaux/solution.dart';
 import '../constantes.dart';
@@ -202,6 +203,7 @@ onChanged: (value){
                 reduction_ctrl.clear();
               });
               patient_search=null;
+
             }),
       ],
     );
