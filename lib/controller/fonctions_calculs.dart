@@ -68,7 +68,7 @@ int Nbr_flacon() {
 }
 
 //la fonction qui calcule reliquats
-double Reliquat() {
+String Reliquat() {
   double volume = Volume_finale();
   int nbr_flcn = Nbr_flacon();
   double reliqat = 0;
@@ -76,7 +76,7 @@ double Reliquat() {
   String rel = reliqat.toStringAsFixed(2);
 
   reliqat = double.parse(rel);
-  return reliqat;
+  return reliqat.toString();
 }
 
 //la fonction qui choisit la meilleure poche
@@ -120,7 +120,7 @@ void modifier_qte_disponible(int nbr_flacon,var context ){
   }
 }
 //extrait la stabilite
-int stabilite(String selected_curr,Detail_medicament medi_detail)
+String stabilite(String selected_curr,Detail_medicament medi_detail)
 {
   int stabilite;
   if(selected_curr=='Flacon verre 4'){
@@ -131,10 +131,12 @@ int stabilite(String selected_curr,Detail_medicament medi_detail)
   if(selected_curr=='PVC 25'){
     stabilite=  medi_detail.PVC_25;
   }
-  return stabilite;
+
+  return stabilite.toString();
 }
-String etat_reliquat(int stabilite, String date_pre)
+String etat_reliquat(String stabilite, String date_pre)
 {
+  int stab =int.parse(stabilite);
   String etat;
   DateTime parseDt = DateTime.parse(date_pre);
 //la  date d 'ajourdhui
@@ -143,10 +145,10 @@ String etat_reliquat(int stabilite, String date_pre)
   //changer au tye date
   DateTime time_noww = DateTime.parse(time_now);
   //ajouter stabilite a date preparation
-  print('$stabilite');
+  print('$stab');
   parseDt.subtract(Duration(days:parseDt.day, hours:parseDt.hour, minutes:parseDt.minute));
   //ajouter a lancienne heure stabilite
-  var newDate = new DateTime(parseDt.year, parseDt.month,parseDt.day,parseDt.hour+stabilite,parseDt.minute);
+  var newDate = new DateTime(parseDt.year, parseDt.month,parseDt.day,parseDt.hour+stab,parseDt.minute);
   //tester
 print(newDate.hour);
   if(newDate.isAfter(time_noww)){

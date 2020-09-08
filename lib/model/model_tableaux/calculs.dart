@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class Calculs {
   //les colones de table calcul
-  double _reliquat;
+  String _reliquat;
   int _qte_consomme;
-  int _stabilite;
+  String _stabilite;
   //=====clé etrangers====
   int _FKmedId2;
   String _FKDatePre;
@@ -26,9 +26,9 @@ class Calculs {
   }
 
   //car les champs sont privée en met ca pour faciliter l acceder a eux
-  double get reliquat => _reliquat;
+  String get reliquat => _reliquat;
   int get qte_consomme => _qte_consomme;
-  int get stabilite => _stabilite;
+  String get stabilite => _stabilite;
   int get FKmedId2 => _FKmedId2;
   String get FKDatePre => _FKDatePre;
 

@@ -122,7 +122,7 @@ class Dbmedica {
 
     //table calculs
     await db.execute(
-      "CREATE TABLE $tableCalculs($columnReliquat REAL,$columnQte_consomme INTEGER,$columnStabilite INTEGER,$FKDatePre TEXT,$FKmedId2 INTEGER, FOREIGN KEY($FKmedId2) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
+      "CREATE TABLE $tableCalculs($columnReliquat TEXT,$columnQte_consomme INTEGER,$columnStabilite TEXT,$FKDatePre TEXT,$FKmedId2 INTEGER, FOREIGN KEY($FKmedId2) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
     );
     debugPrint(' calcul OnCreate');
 
@@ -147,12 +147,17 @@ class Dbmedica {
     return result.toList();
   }
   //jointure medicament et calculs pour fin journée
-  Future<List> getAllJoinMedCalc() async {
+ /* Future<List> getAllJoinMedCalc() async {
     var dbMedicament = await db;
     var result = await dbMedicament.rawQuery("SELECT * FROM $tableMed INNER JOIN $tableCalculs ON $FKmedId2=$columnId_med");
     return result.toList();
   }
-
+*/
+  Future<List> getAllJoinMedCalc() async {
+    var dbMedicament = await db;
+    var result = await dbMedicament.rawQuery("SELECT GROUP_CONCAT(CAST($columnReliquat AS TEXT ) ,' | ') $columnReliquat,GROUP_CONCAT(CAST($columnStabilite AS TEXT),' | ' ) $columnStabilite ,$columnNom ,SUM($columnQte_consomme) AS $columnQte_consomme FROM $tableMed INNER JOIN $tableCalculs ON $FKmedId2=$columnId_med GROUP BY $columnId_med;");
+    return result.toList();
+  }
 //CRUD CREATE READ UPDATE DELETE
   //==============================CRUD MEDICAMENT1 ================================================================
 //insirer fonction

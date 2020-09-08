@@ -7,9 +7,9 @@ class Join_med_calc_sol {
   int _qte_disponible;
   double _volume_flacon;
   //les colones de table student
-  double _reliquat;
+  String _reliquat;
   int _qte_consomme;
-  int _stabilite;
+  String _stabilite;
   //=====clé etrangers====
   int _FKmedId;
   String _FKDatePre;
@@ -72,9 +72,9 @@ class Join_med_calc_sol {
   String get nom => _nom;
   int get qte_disponible => _qte_disponible;
   double get volume_flacon => _volume_flacon;
-  double get reliquat => _reliquat;
+  String get reliquat => _reliquat;
   int get qte_consomme => _qte_consomme;
-  int get stabilite => _stabilite;
+  String get stabilite => _stabilite;
   int get FKmedId => _FKmedId;
   String get FKDatePre => _FKDatePre;
   int get id_solution => _id_solution;

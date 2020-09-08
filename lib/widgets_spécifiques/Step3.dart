@@ -31,7 +31,7 @@ class _Step3State extends State<Step3> {
   double dose = Dose_a_administrer();
   double volume = Volume_finale();
   int nbr_flacon = Nbr_flacon();
-  double reliquat = Reliquat();
+  String reliquat = Reliquat();
   int poche = ChoisirPoche();
   @override
   Widget build(BuildContext context) {
@@ -173,7 +173,7 @@ onChanged: (value){
                 id_poche_choisi =2;
               }
               //extrait stabilité
-             int stblt= stabilite(selected_currency, medi_detail_det);
+            String stblt= stabilite(selected_currency, medi_detail_det);
 
               dbmanager.insertSolution(new Solution(
               time,

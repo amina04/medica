@@ -63,7 +63,7 @@ ListView _buildlistview() {
                       width: 10.0,
                     ),
                     Text(
-                      '20 ',
+                      '${Join_Med_Calc.fromMap(fin_journee[position]).qte_consomme}',
                       style: klabelTextStyle,
                     ),
                     SizedBox(
@@ -75,6 +75,7 @@ ListView _buildlistview() {
                     ),
                   ],
                 ),
+
                 Row(
                   children: <Widget>[
                     Text(
@@ -92,7 +93,7 @@ ListView _buildlistview() {
                       width: 10.0,
                     ),
                     Text(
-                      'flacons ',
+                      'mg/ml',
                       style: klabelTextStyle,
                     ),
                   ],
