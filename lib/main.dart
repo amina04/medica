@@ -33,6 +33,7 @@ List fin_journee;
 //=============
 List join_med;
 List join_pat_sol_list;
+Color couleur;
 //utilisée dans list view pour le item selectionner a le id de item
 Medicament med_det, med_modif, med_search;
 Detail_medicament medi_detail_det;

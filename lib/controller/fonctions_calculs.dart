@@ -1,6 +1,8 @@
 //la fonction qui calcule la dose a administrer
 
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medica/controller/calcul_step2_controller.dart';
 import 'package:medica/model/database.dart';
@@ -153,9 +155,11 @@ String etat_reliquat(String stabilite, String date_pre)
 print(newDate.hour);
   if(newDate.isAfter(time_noww)){
     etat=' non périmée';
+    couleur =Colors.tealAccent.shade100;
     return etat;
   }else{
     etat=' périmée';
+    couleur =Colors.red.shade100;
     return etat;
   }
 }

@@ -44,105 +44,95 @@ ListView _buildlistview() {
   return ListView.builder(
       itemCount: fin_journee == null ? 0 : fin_journee.length,
       itemBuilder: (BuildContext context, int position) {
-        return Card(
-          child: ListTile(
-            title: Text(
-              'médicament ${Join_Med_Calc.fromMap(fin_journee[position]).nom}',
-              style: kresultliststyle,
-            ),
+        return Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Card(
+            child: ListTile(
+              title: Text(
+                'médicament : ${Join_Med_Calc.fromMap(fin_journee[position]).nom}',
+                style:ktitlecardStyle,
+              ),
 //un sous titre
-            subtitle: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'La quantité consommée : ',
-                      style: klabelTextStyle,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      '${Join_Med_Calc.fromMap(fin_journee[position]).qte_consomme}',
-                      style: klabelTextStyle,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      ' flacons',
-                      style: klabelTextStyle,
-                    ),
-                  ],
-                ),
+              subtitle: Column(
+                children: <Widget>[
+                  SizedBox( height: 11.0,),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        'La quantité consommée : ',
+                        style: kcontaincardStyle,
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        '${Join_Med_Calc.fromMap(fin_journee[position]).qte_consomme}',
+                        style: kcontaincardStyle,
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        ' flacons',
+                        style: kcontaincardStyle,
+                      ),
+                    ],
+                  ),
+                  SizedBox( height: 6.0,),
+Row(children: [  Text(
+  'reliquats :',
+  style: kcontaincardStyle,
+),
 
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'reliquats ',
-                      style: klabelTextStyle,
-                    ),
+    SizedBox(
+      width: 50.0,
+    ),
+  Text(
+    'Stabilités :',
+    style: kcontaincardStyle,
+  ),]),
+
+                  Row(children: [   Text(
+                    '${Join_Med_Calc.fromMap(fin_journee[position]).reliquat}  mg/ml',
+                    style: kcontaincardStyle,
+                  ),
+
                     SizedBox(
-                      width: 10.0,
+                      width: 30.0,
                     ),
                     Text(
-                      '${Join_Med_Calc.fromMap(fin_journee[position]).reliquat}',
-                      style: klabelTextStyle,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      'mg/ml',
-                      style: klabelTextStyle,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'Stabilités',
-                      style: klabelTextStyle,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      '${Join_Med_Calc.fromMap(fin_journee[position]).stabilite}',
-                      style: klabelTextStyle,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      'heures',
-                      style: klabelTextStyle,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'Prix des reliquats jetées',
-                      style: klabelTextStyle,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      '48',
-                      style: klabelTextStyle,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      'DA',
-                      style: klabelTextStyle,
-                    ),
-                  ],
-                ),
-              ],
+                      '${Join_Med_Calc.fromMap(fin_journee[position]).stabilite} heures',
+                      style: kcontaincardStyle,
+                    ),]),
+
+                  SizedBox( height: 6.0,),
+
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        'Prix des reliquats jetées',
+                        style: kcontaincardStyle,
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        '48',
+                        style: kcontaincardStyle,
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        'DA',
+                        style: kcontaincardStyle,
+                      ),
+                    ],
+                  ),
+                  SizedBox( height: 11.0,),
+                ],
+
+              ),
             ),
           ),
         );

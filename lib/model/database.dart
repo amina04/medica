@@ -155,7 +155,7 @@ class Dbmedica {
 */
   Future<List> getAllJoinMedCalc() async {
     var dbMedicament = await db;
-    var result = await dbMedicament.rawQuery("SELECT GROUP_CONCAT(CAST($columnReliquat AS TEXT ) ,' | ') $columnReliquat,GROUP_CONCAT(CAST($columnStabilite AS TEXT),' | ' ) $columnStabilite ,$columnNom ,SUM($columnQte_consomme) AS $columnQte_consomme FROM $tableMed INNER JOIN $tableCalculs ON $FKmedId2=$columnId_med GROUP BY $columnId_med;");
+    var result = await dbMedicament.rawQuery("SELECT GROUP_CONCAT(CAST($columnReliquat AS TEXT ) ,'  mg/ml\n ') $columnReliquat,GROUP_CONCAT(CAST($columnStabilite AS TEXT),' heures \n' ) $columnStabilite ,$columnNom ,SUM($columnQte_consomme) AS $columnQte_consomme FROM $tableMed INNER JOIN $tableCalculs ON $FKmedId2=$columnId_med GROUP BY $columnId_med;");
     return result.toList();
   }
 //CRUD CREATE READ UPDATE DELETE
