@@ -54,6 +54,7 @@ ListView _buildlistview() {
 
             child: ListTile(
 
+
               title: Text(
                 'médicament : ${Join_med_calc_sol.fromMap(debut_journee[position]).nom}',
                 style:ktitlecardStyle,
@@ -61,47 +62,68 @@ ListView _buildlistview() {
 
 //un sous titre
 
-              subtitle: Column(
+              subtitle: Row(
+mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
 
-                children: <Widget>[
-                  SizedBox( height: 11.0,),
-                  Row(
+                  Column(
+
                     children: <Widget>[
-                      Text(
-                        'Etat :',
-                        style: kcontaincardStyle,
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Text(
-                        etat_reliquat(Join_med_calc_sol.fromMap(debut_journee[position]).stabilite,Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation),
-                        style: kcontaincardStyle,
 
+                      SizedBox( height: 11.0,),
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            'Etat :',
+                            style: kcontaincardStyle,
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Text(
+                            etat_reliquat(Join_med_calc_sol.fromMap(debut_journee[position]).stabilite,Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation,Join_med_calc_sol.fromMap(debut_journee[position]).prix_reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).qte_consomme,Join_med_calc_sol.fromMap(debut_journee[position]).prix_reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).FKmedId2),
+                            style: kcontaincardStyle,
+
+                          ),
+                        ],
                       ),
+
+
+                      SizedBox( height: 6.0,),
+                          Text(
+                            'date : ${Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation}',
+                            style: kcontaincardStyle,
+                          ),
+
+                      SizedBox( height: 6.0,),
+                          Text(
+                            'Quantité : ${Join_med_calc_sol.fromMap(debut_journee[position]).reliquat} ml',
+                            style: kcontaincardStyle,
+                          ),
+
+
                     ],
                   ),
-                  SizedBox( height: 6.0,),
-                      Text(
-                        'date : ${Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation}',
-                        style: kcontaincardStyle,
-                      ),
+                  IconButton(icon: Icon( Icons.delete,color: Colors.red,size: 30.0,),
+                      onPressed:(){
+                    var dbmanager = new Dbmedica();
+                    dbmanager.supprimerCal(Join_med_calc_sol.fromMap(debut_journee[position]).FKmedId2,
+                        Join_med_calc_sol.fromMap(debut_journee[position]).FKDatePre);
 
-                  SizedBox( height: 6.0,),
-                      Text(
-                        'Quantité : ${Join_med_calc_sol.fromMap(debut_journee[position]).reliquat} ml',
-                        style: kcontaincardStyle,
-                      ),
-
-
+                  }
+                  )
                 ],
               ),
-            ),
+
+
+  ),
             shape: new RoundedRectangleBorder(
                 side: new BorderSide(color:couleur, width: 3.0),
                 borderRadius: BorderRadius.circular(8.0)),
             elevation: 2.0,
+
           ),
+
         );
       });
 }

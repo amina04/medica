@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medica/controller/calcul_step2_controller.dart';
 import 'package:medica/model/database.dart';
+import 'package:medica/model/model_tableaux/calculs.dart';
 import 'package:medica/model/model_tableaux/d%C3%A9tails_med.dart';
 import 'package:medica/model/model_tableaux/medicament.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -98,6 +99,7 @@ double Prix_reliquat_pirimi({double prix, double dose}) {
   res = (prix * dose);
   return res;
 }
+
 //la fonction qui changé la qte disponible
 void modifier_qte_disponible(int nbr_flacon,var context ){
   var dbmanager = new Dbmedica();
@@ -136,8 +138,13 @@ String stabilite(String selected_curr,Detail_medicament medi_detail)
 
   return stabilite.toString();
 }
-String etat_reliquat(String stabilite, String date_pre)
+String etat_reliquat(String stabilite, String date_pre ,double prix,String reliqua,int qte_consomme,double prix_reli,int fkmedid)
 {
+  var dbmanager = new Dbmedica();
+ /* bool exist;
+  double prix_tot;
+ // var dbmanager = new Dbmedica();
+  Detail_medicament med_obj;*/
   int stab =int.parse(stabilite);
   String etat;
   DateTime parseDt = DateTime.parse(date_pre);
@@ -159,6 +166,34 @@ print(newDate.hour);
     return etat;
   }else{
     etat=' périmée';
+   // med_obj = dbmanager.getMedDetail(6) as Detail_medicament;
+  // int  prix_mg =med_obj.prix;
+  // print('prix $prix_mg');
+  // prix_totale=prix_mg*qte1;
+     print('prix $prix');
+/*if(posi<debut_journee.length) {
+  exist = prix_reli.containsKey(nom_med);
+  if (exist == true) {
+    prix_tot = prix + prix_reli[nom_med];
+    prix_reli.update(nom_med, (value) => prix_tot);
+  }
+  else {
+    prix_reli[nom_med] = prix;
+  }
+}else{
+  prix_reli.clear();
+}*/
+    Calculs calpdated = Calculs.fromMap({
+      "reliquat": reliqua,
+      "qte_consomme": qte_consomme,
+      "stabilite": stabilite,
+      "prix_reliquat": prix_reli,
+      "etat": 'perime',
+      "FKDatePre": date_pre,
+      "FKmedId2":fkmedid,
+
+    });
+    dbmanager.modifierCalcul(calpdated);
     couleur =Colors.red.shade100;
     return etat;
   }

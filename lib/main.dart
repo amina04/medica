@@ -23,6 +23,9 @@ import 'model/model_tableaux/patient.dart';
 import 'model/model_tableaux/poches.dart';
 import 'model/model_tableaux/solution.dart';
 import 'view/start.dart';
+String etat;
+//double prix_totale=0;
+Map<String,double> prix_reli={};
 
 List meds;
 List patient_list;

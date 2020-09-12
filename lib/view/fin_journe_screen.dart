@@ -6,7 +6,7 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:medica/constantes.dart';
 import 'package:medica/model/database.dart';
 import 'package:medica/model/model_tableaux/join_med_calc.dart';
-
+import 'package:medica/controller/fonctions_calculs.dart';
 import '../main.dart';
 
 class Fin_journee extends StatefulWidget {
@@ -117,7 +117,8 @@ Row(children: [  Text(
                         width: 10.0,
                       ),
                       Text(
-                        '48',
+                        '${prix_reli[Join_Med_Calc.fromMap(fin_journee[position]).nom]}'
+                      ,
                         style: kcontaincardStyle,
                       ),
                       SizedBox(
@@ -134,7 +135,8 @@ Row(children: [  Text(
 
               ),
             ),
+
           ),
         );
-      });
+     });
 }

@@ -185,8 +185,9 @@ onChanged: (value){
                 id_poche_choisi,
                  id_patient_search,
               ));
+              double prixRe =medi_detail_det.prix*double.parse(reliquat);
              int res=await dbmanager.insertcalculs(new Calculs(
-                reliquat,nbr_flacon,stblt,id_med_jcombobox,time,
+                reliquat,nbr_flacon,stblt,prixRe,'non_perime',id_med_jcombobox,time,
               ));
 
 
