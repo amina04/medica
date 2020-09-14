@@ -90,7 +90,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             width: 10.0,
                           ),
                           Text(
-                            etat_reliquat(Join_med_calc_sol.fromMap(debut_journee[position]).stabilite,Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation,Join_med_calc_sol.fromMap(debut_journee[position]).prix_reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).qte_consomme,Join_med_calc_sol.fromMap(debut_journee[position]).prix_reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).FKmedId2,Join_med_calc_sol.fromMap(debut_journee[position]).nom),
+                            etat_reliquat(Join_med_calc_sol.fromMap(debut_journee[position]).stabilite,Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation,Join_med_calc_sol.fromMap(debut_journee[position]).prix_reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).nom),
                             style: kcontaincardStyle,
 
                           ),

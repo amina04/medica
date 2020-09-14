@@ -52,21 +52,21 @@ class _Fin_journeeState extends State<Fin_journee> {
                               Row(
                                 children: <Widget>[
                                   Text(
-                                    'La quantité consommée : ',
+                                    'La quantité consommée :',
                                     style: kcontaincardStyle,
                                   ),
                                   SizedBox(
-                                    width: 10.0,
+                                    width: 8.0,
                                   ),
                                   Text(
                                     '${Join_Med_Calc.fromMap(fin_journee[position]).qte_consomme}',
                                     style: kcontaincardStyle,
                                   ),
                                   SizedBox(
-                                    width: 10.0,
+                                    width: 8.0,
                                   ),
                                   Text(
-                                    ' flacons',
+                                    'flacons',
                                     style: kcontaincardStyle,
                                   ),
                                 ],

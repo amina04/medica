@@ -138,15 +138,15 @@ String stabilite(String selected_curr,Detail_medicament medi_detail)
 
   return stabilite.toString();
 }
-String etat_reliquat(String stabilite, String date_pre ,double prix,String reliqua,int qte_consomme,double prix_reliq,int fkmedid,String nom_med)
+String etat_reliquat(String stabilite, String date_pre ,double prix,String nom_med)
 {
-  var dbmanager = new Dbmedica();
+
   bool exist;
   double prix_tot;
  // var dbmanager = new Dbmedica();
 
   int stab =int.parse(stabilite);
-  String etat;
+
   DateTime parseDt = DateTime.parse(date_pre);
 //la  date d 'ajourdhui
   var newFormat = DateFormat("yyyy-MM-dd HH:mm");

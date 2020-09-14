@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:medica/constantes.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:medica/model/database.dart';
+import 'package:medica/controller/fonctions_calculs.dart';
+
 
 import '../main.dart';
 
@@ -23,7 +25,7 @@ class _Detail_patient extends State<Detail_patient> {
   double surface_coporelle = patient_det.surface_coporelle;
   String date =solution_selectione.date_preparation;
   double dose =solution_selectione.dose_administrer;
-String reliquat =calcul_selectionne.reliquat;
+
 
 
   @override
@@ -130,7 +132,7 @@ String reliquat =calcul_selectionne.reliquat;
                     width: 10.0,
                   ),
                   Text(
-                    '$reliquat mg/ml',
+                    '$reliquat_history mg/ml',
                     style: kresultliststyle,
                   ),
                 ],

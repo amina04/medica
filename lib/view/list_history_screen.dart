@@ -93,7 +93,8 @@ class _list_history extends State<list_history> {
                 String date_pre_calc =solution_selectione.date_preparation;
               calcul_selectionne = await dbmanager.getCalculs(med_id_calc,date_pre_calc);
                 print(calcul_selectionne.FKDatePre);
-                },
+if(calcul_selectionne==null){reliquat_history='0';}else{reliquat_history =calcul_selectionne.reliquat;}
+              },
             ),
           );
         });

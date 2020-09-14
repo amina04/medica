@@ -26,7 +26,9 @@ import 'view/start.dart';
 String etat;
 //double prix_totale=0;
 Map<String,double> prix_reli={};
+//pour qeviter le probleme de quand on supprime un reliquat pirimé l accé au deatils hiqtorique de personne sera impossible
 
+String reliquat_history;
 List meds;
 List patient_list;
 List poche_list;
