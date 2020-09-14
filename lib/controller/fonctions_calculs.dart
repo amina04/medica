@@ -138,13 +138,13 @@ String stabilite(String selected_curr,Detail_medicament medi_detail)
 
   return stabilite.toString();
 }
-String etat_reliquat(String stabilite, String date_pre ,double prix,String reliqua,int qte_consomme,double prix_reli,int fkmedid)
+String etat_reliquat(String stabilite, String date_pre ,double prix,String reliqua,int qte_consomme,double prix_reliq,int fkmedid,String nom_med)
 {
   var dbmanager = new Dbmedica();
- /* bool exist;
+  bool exist;
   double prix_tot;
  // var dbmanager = new Dbmedica();
-  Detail_medicament med_obj;*/
+
   int stab =int.parse(stabilite);
   String etat;
   DateTime parseDt = DateTime.parse(date_pre);
@@ -163,38 +163,25 @@ print(newDate.hour);
   if(newDate.isAfter(time_noww)){
     etat=' non périmée';
     couleur =Colors.tealAccent.shade100;
+
     return etat;
   }else{
     etat=' périmée';
-   // med_obj = dbmanager.getMedDetail(6) as Detail_medicament;
-  // int  prix_mg =med_obj.prix;
-  // print('prix $prix_mg');
-  // prix_totale=prix_mg*qte1;
-     print('prix $prix');
-/*if(posi<debut_journee.length) {
-  exist = prix_reli.containsKey(nom_med);
-  if (exist == true) {
-    prix_tot = prix + prix_reli[nom_med];
-    prix_reli.update(nom_med, (value) => prix_tot);
-  }
-  else {
-    prix_reli[nom_med] = prix;
-  }
-}else{
-  prix_reli.clear();
-}*/
-    Calculs calpdated = Calculs.fromMap({
-      "reliquat": reliqua,
-      "qte_consomme": qte_consomme,
-      "stabilite": stabilite,
-      "prix_reliquat": prix_reli,
-      "etat": 'perime',
-      "FKDatePre": date_pre,
-      "FKmedId2":fkmedid,
 
-    });
-    dbmanager.modifierCalcul(calpdated);
+    exist =prix_reli.containsKey(nom_med);
+    if (exist == true) {
+      prix_tot = prix + prix_reli[nom_med];
+      String p = prix_tot.toStringAsFixed(2);
+
+      double prix_totale = double.parse(p);
+      prix_reli.update(nom_med, (value) => prix_totale);
+    }
+    else {
+      prix_reli[nom_med] = prix;
+    }
     couleur =Colors.red.shade100;
+
     return etat;
+
   }
 }

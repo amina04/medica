@@ -6,7 +6,7 @@ class Calculs {
   int _qte_consomme;
   String _stabilite;
   double _prix_reliquat;
-  String _etat;
+
   //=====clé etrangers====
   int _FKmedId2;
   String _FKDatePre;
@@ -17,7 +17,6 @@ class Calculs {
     this._qte_consomme,
       this._stabilite,
       this._prix_reliquat,
-      this._etat,
     this._FKmedId2,
     this._FKDatePre,
   );
@@ -26,7 +25,6 @@ class Calculs {
     this._qte_consomme = obj['qte_consomme'];
     this._stabilite = obj['stabilite'];
     this._prix_reliquat = obj['prix_reliquat'];
-    this._etat = obj['etat'];
     this._FKDatePre = obj['FKDatePre'];
     this._FKmedId2 = obj['FKmedId2'];
   }
@@ -36,7 +34,6 @@ class Calculs {
   int get qte_consomme => _qte_consomme;
   String get stabilite => _stabilite;
   double get prix_reliquat => _prix_reliquat;
-  String get etat => _etat;
   int get FKmedId2 => _FKmedId2;
   String get FKDatePre => _FKDatePre;
 
@@ -46,7 +43,6 @@ class Calculs {
     map['qte_consomme'] = _qte_consomme;
     map['stabilite'] = _stabilite;
     map['prix_reliquat'] = _prix_reliquat;
-    map['etat'] = _etat;
     map['FKDatePre'] = _FKDatePre;
     map['FKmedId2'] = _FKmedId2;
 
@@ -58,7 +54,6 @@ class Calculs {
     this._qte_consomme = map['qte_consomme'];
     this._stabilite = map['stabilite'];
     this._prix_reliquat = map['prix_reliquat'];
-    this._etat = map['etat'];
     this._FKDatePre = map['FKDatePre'];
     this._FKmedId2 = map['FKmedId2'];
   }

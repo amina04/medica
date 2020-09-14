@@ -14,9 +14,18 @@ class Debut_journee extends StatefulWidget {
 
   @override
   _Debut_journeeState createState() => _Debut_journeeState();
+
+
 }
 
+
 class _Debut_journeeState extends State<Debut_journee> {
+  @override
+void initState() {
+    super.initState();
+    prix_reli.clear();
+    prix_reli={};
+  }
   var dbmanager = new Dbmedica();
 
   @override
@@ -81,7 +90,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             width: 10.0,
                           ),
                           Text(
-                            etat_reliquat(Join_med_calc_sol.fromMap(debut_journee[position]).stabilite,Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation,Join_med_calc_sol.fromMap(debut_journee[position]).prix_reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).qte_consomme,Join_med_calc_sol.fromMap(debut_journee[position]).prix_reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).FKmedId2),
+                            etat_reliquat(Join_med_calc_sol.fromMap(debut_journee[position]).stabilite,Join_med_calc_sol.fromMap(debut_journee[position]).date_preparation,Join_med_calc_sol.fromMap(debut_journee[position]).prix_reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).qte_consomme,Join_med_calc_sol.fromMap(debut_journee[position]).prix_reliquat,Join_med_calc_sol.fromMap(debut_journee[position]).FKmedId2,Join_med_calc_sol.fromMap(debut_journee[position]).nom),
                             style: kcontaincardStyle,
 
                           ),

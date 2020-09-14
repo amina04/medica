@@ -187,7 +187,7 @@ onChanged: (value){
               ));
               double prixRe =medi_detail_det.prix*double.parse(reliquat);
              int res=await dbmanager.insertcalculs(new Calculs(
-                reliquat,nbr_flacon,stblt,prixRe,'non_perime',id_med_jcombobox,time,
+                reliquat,nbr_flacon,stblt,prixRe,id_med_jcombobox,time,
               ));
 
 

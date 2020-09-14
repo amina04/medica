@@ -66,7 +66,7 @@ class Dbmedica {
   final String columnQte_consomme = 'qte_consomme';
   final String columnStabilite = 'stabilite';
   final String columnPrixReliquat = 'prix_reliquat';
-  final String columnEtat = 'etat';
+
   //les cle etrangers========================================================
   final String FKmedId = 'FKmedId';
   final String FKmedId2 = 'FKmedId2';
@@ -125,7 +125,7 @@ class Dbmedica {
 
     //table calculs
     await db.execute(
-      "CREATE TABLE $tableCalculs($columnReliquat TEXT,$columnQte_consomme INTEGER,$columnStabilite TEXT,$columnPrixReliquat REAL,$columnEtat TEXT,$FKDatePre TEXT,$FKmedId2 INTEGER, FOREIGN KEY($FKmedId2) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
+      "CREATE TABLE $tableCalculs($columnReliquat TEXT,$columnQte_consomme INTEGER,$columnStabilite TEXT,$columnPrixReliquat REAL,$FKDatePre TEXT,$FKmedId2 INTEGER, FOREIGN KEY($FKmedId2) REFERENCES $tableMed($columnId_med) ON DELETE CASCADE)",
     );
     debugPrint(' calcul OnCreate');
 
@@ -149,19 +149,12 @@ class Dbmedica {
     var result = await dbMedicament.rawQuery("SELECT * FROM (($tableMed INNER JOIN $tablesolution ON $columnId_med=$FKmedId)INNER JOIN $tableCalculs ON ($columnId_med =$FKmedId2 AND $columnDatePreparation LIKE $FKDatePre))");
     return result.toList();
   }
-  //jointure medicament et calculs pour fin journée
- /* Future<List> getAllJoinMedCalc() async {
-    var dbMedicament = await db;
-    var result = await dbMedicament.rawQuery("SELECT * FROM $tableMed INNER JOIN $tableCalculs ON $FKmedId2=$columnId_med");
-    return result.toList();
-  }
-*/
+
   Future<List> getAllJoinMedCalc() async {
     var dbMedicament = await db;
     var result = await dbMedicament.rawQuery("SELECT GROUP_CONCAT(CAST($columnReliquat AS TEXT ) ,'  mg/ml\n ') $columnReliquat,GROUP_CONCAT(CAST($columnStabilite AS TEXT),' heures \n' ) $columnStabilite ,$columnNom ,SUM($columnQte_consomme) AS $columnQte_consomme FROM $tableMed INNER JOIN $tableCalculs ON $FKmedId2=$columnId_med GROUP BY $columnId_med ");
     return result.toList();
   }
-
 
 //CRUD CREATE READ UPDATE DELETE
   //==============================CRUD MEDICAMENT1 ================================================================
@@ -410,7 +403,7 @@ class Dbmedica {
     return await dbMedicament
     //? veut dire que on le connait pas pour le moment
         .update(tableCalculs, cal.toMap(),
-        where: "$FKDatePre = ? ", whereArgs: [cal.FKDatePre]  );
+        where: "$FKmedId2 = ? AND $FKDatePre = ?", whereArgs: [cal.FKmedId2,cal.FKDatePre]  );
   }
   //supprimer
   Future<int> supprimerCal(int id ,String dat) async {
