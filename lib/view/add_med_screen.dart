@@ -358,9 +358,9 @@ class _Add_med extends State<Add_med> {
                 "sauvegarder",
                 style: kbuttonTextStyle,
               ),
-              onPressed: () async {
+              onPressed: () async{
                 //ajout de med
-                if (med_modif == null) {
+                if (med_modif == null){
                   //ajouter un medicament
                   int res = await dbmanager.insertMedicament(new Medicament(
                       nom_med_ctrl.text,
@@ -402,11 +402,11 @@ class _Add_med extends State<Add_med> {
                   /* setState(() {
                     selected_item = Medicament.fromMap(meds.first).nom;
                   });*/
-                } else {
+                }else{
                   //modification
                   Medicament medUpdated = Medicament.fromMap({
                     "nom": nom_med_ctrl.text,
-                    "qte_disponible": double.parse(qte_disponible_ctrl.text),
+                    "qte_disponible": int.parse(qte_disponible_ctrl.text),
                     "volume_flacon": double.parse(volum_flcn_ctrl.text),
                     "id_medicament": updated_id,
                   });
