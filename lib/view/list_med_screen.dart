@@ -55,17 +55,19 @@ class _List_medState extends State<List_med> {
                                 desc: "vous devez le l'ajouter d'abord.")
                             .show();
                       } else {
+
+                        selected_id = med_search.id_medicament;
+                        print('id delectionne $selected_id');
+                        med_det = med_search;
+                        medi_detail_det = await dbmanager.getMedDetail(selected_id);
+                        //=========================
+                        med_search=null;
                         print('exisit');
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Detail_med()));
 
-                        selected_id = med_search.id_medicament;
-                        print('id delectionne $selected_id');
-                        med_det = med_search;
-                        //=========================
-                        med_search=null;
                       }
                     },
                     style: TextStyle(color: Colors.white, fontSize: 16.0),

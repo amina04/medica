@@ -6,6 +6,7 @@ import 'package:medica/model/model_tableaux/calculs.dart';
 import 'package:medica/model/model_tableaux/join_med_calc_sol.dart';
 import 'package:medica/model/model_tableaux/patient.dart';
 import 'package:medica/model/model_tableaux/solution.dart';
+import 'package:medica/view/add_med_screen.dart';
 import '../constantes.dart';
 import 'package:medica/controller/calcul_step1_controller.dart';
 import 'package:medica/model/database.dart';
@@ -152,43 +153,74 @@ onChanged: (value){
               String time = newFormat.format(DateTime.now());
 
               print('time DateTime.now() $time');
-              //insirer patient
-              int id_patient_search;
-              if(patient_search== null){
-               id_patient_search= await  dbmanager.insertPatient(new Patient(
-                  nom_patient_ctrl.text,
-                  prenom_patient_ctrl.text,
-                  height,
-                  weight,
-                  double.parse(surface_coporelle_ctrl.text),
-                ));
-              }else{
-                 id_patient_search =patient_search.id_patient;
-              }
-
+              //extrait stabilité
+              String stblt= stabilite(selected_currency, medi_detail_det);
               int id_poche_choisi;
               if(ChoisirPoche()==250){
                 id_poche_choisi =1;
               }else{
                 id_poche_choisi =2;
               }
-              //extrait stabilité
-            String stblt= stabilite(selected_currency, medi_detail_det);
-
-              dbmanager.insertSolution(new Solution(
-              time,
-                double.parse(posologie_ctrl.text),
-                int.parse(reduction_ctrl.text),
-                dose,
-                volume,
+              //insirer patient
+              int id_patient_search;
+             // if(patient_search== null){
+                id_patient_search= await  dbmanager.insertPatient(new Patient(
+                  nom_patient_ctrl.text,
+                  prenom_patient_ctrl.text,
+                  height,
+                  weight,
+                  double.parse(surface_coporelle_ctrl.text),
+                ));
+                dbmanager.insertSolution(new Solution(
+                  time,
+                  double.parse(posologie_ctrl.text),
+                  int.parse(reduction_ctrl.text),
+                  dose,
+                  volume,
                   id_med_jcombobox,
-                id_poche_choisi,
-                 id_patient_search,
-              ));
-              double prixRe =medi_detail_det.prix*double.parse(reliquat);
-             int res=await dbmanager.insertcalculs(new Calculs(
-                reliquat,nbr_flacon,stblt,prixRe,id_med_jcombobox,time,
-              ));
+                  id_poche_choisi,
+                  id_patient_search,
+                ));
+                double prixRe =medi_detail_det.prix*double.parse(reliquat);
+                int res=await dbmanager.insertcalculs(new Calculs(
+                  reliquat,nbr_flacon,stblt,prixRe,id_med_jcombobox,time,
+                ));
+        /*      }else{
+                //modifier medicament et modifier solution
+                id_patient_search =patient_search.id_patient;
+                Patient patpdated = Patient.fromMap({
+                  "Nom_patient": nom_patient_ctrl.text,
+                  "Prenom_patient": prenom_patient_ctrl.text,
+                  "taille": height,
+                  "poids":  weight,
+                  "surface_coporelle": double.parse(surface_coporelle_ctrl.text),
+                  "id_patient": id_patient_search,
+                });
+                await dbmanager.modifierpatient(patpdated);
+                //get the right solution
+                Solution old_sol =await dbmanager.getSolution(id_patient_search);
+                int id_old_sol =old_sol.id_solution;
+                //modifier solution
+                Solution updatedsol =Solution.fromMap({
+                  "id_solution" : id_old_sol,
+                  "date_preparation" : time,
+                  "posologie" :  double.parse(posologie_ctrl.text),
+                  "reduction" :  int.parse(reduction_ctrl.text),
+                  "dose_administrer" :  dose,
+                  "volume_finale" : volume,
+                  "FKmedId"  : id_med_jcombobox,
+                  "FKpoche" : id_poche_choisi,
+                  "FKpatientId" : id_patient_search,
+                });
+                await dbmanager.modifierSolution(updatedsol);
+
+
+              }*/
+
+
+
+
+
 
 
               //modifier la qte disponible une fonction
