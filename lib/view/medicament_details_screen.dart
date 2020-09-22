@@ -43,10 +43,12 @@ class _Detail_med extends State<Detail_med> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: GradientAppBar(
+      
         centerTitle: true,
         title: Text('Détails de médicament ', style: kappBarTextStyle),
         gradient:
             LinearGradient(colors: [Colors.lightBlueAccent, Colors.tealAccent]),
+
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: 20),
@@ -317,7 +319,7 @@ class _Detail_med extends State<Detail_med> {
                           ),
                           onPressed: () {
                             //pour revenir au page
-                            Navigator.pop(context);
+                            Navigator.pushNamed(context, List_med.id);
                           })
                     ],
                   ).show();

@@ -120,24 +120,7 @@ class _Detail_patient extends State<Detail_patient> {
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(15.0),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'Reliquats:',
-                    style: ksubtitleliststyle,
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Text(
-                    '$reliquat_history mg/ml',
-                    style: kresultliststyle,
-                  ),
-                ],
-              ),
-            ),
+
           ],
         ),
       ),

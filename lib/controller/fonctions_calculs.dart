@@ -15,11 +15,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import '../main.dart';
 import 'calcul_step1_controller.dart';
 
-/*double Dose_a_administrer({double surface, double posologie}) {
-  double dose;
-  dose = surface * posologie;
-  return dose;
-}*/
+
 double Dose_a_administrer() {
   double doose;
   double surface = double.parse(surface_coporelle_ctrl.text);
@@ -45,9 +41,7 @@ double Volume_finale() {
   double ci = ci_jcombobox_selected;
   double volume = 0.0;
   volume = (dose / ci);
-  print(' volumr $volume');
-  print(' dose $dose');
-  print(' ci $ci');
+
   String vol = volume.toStringAsFixed(2);
 
   double volum = double.parse(vol);

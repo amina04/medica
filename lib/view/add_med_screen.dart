@@ -88,33 +88,7 @@ class _Add_med extends State<Add_med> {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Card(
-                          elevation: 5.0,
-                          margin: EdgeInsets.all(2.0),
-                          //pour radius
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
 
-                          child: Icon(
-                            Icons.add,
-                            size: 45.0,
-                            color: Colors.teal,
-                          ),
-                        ),
-                        onTap: () {
-                          // TODO: insirer un autre stabilité
-                          //renouvler l ajout de présentation
-                          print('add presentation');
-                          presentation_ctrl.clear();
-                        },
-                      )
-                    ],
-                  ),
                 ],
               ),
             ),
@@ -314,35 +288,7 @@ class _Add_med extends State<Add_med> {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Card(
-                          elevation: 5.0,
-                          margin: EdgeInsets.all(2.0),
-                          //pour radius
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
 
-                          child: Icon(
-                            Icons.add,
-                            size: 45.0,
-                            color: Colors.teal,
-                          ),
-                        ),
-                        onTap: () {
-                          // TODO:insirer stabilite
-                          //pour renouvler l ajout de stabilité
-                          verre_25_ctrl.clear();
-                          pvc_25_ctrl.clear();
-                          verre_4_ctrl.clear();
-                          print('add stabilité');
-                        },
-                      )
-                    ],
-                  ),
                 ],
               ),
             ),

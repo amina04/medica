@@ -110,14 +110,14 @@ class _Fin_journeeState extends State<Fin_journee> {
                                     width: 10.0,
                                   ),
 
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
                                   Text(
                                      '${prix_reli[Join_Med_Calc.fromMap(fin_journee[position]).nom]}'
 
                                     ,
                                     style: kcontaincardStyle,
-                                  ),
-                                  SizedBox(
-                                    width: 10.0,
                                   ),
                                   Text(
                                     'DA',

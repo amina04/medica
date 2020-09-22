@@ -33,7 +33,7 @@ List meds;
 List patient_list;
 List poche_list;
 List meds_detail;
-List debut_journee;
+List debut_journee; 
 List fin_journee;
 //=============
 List join_med;

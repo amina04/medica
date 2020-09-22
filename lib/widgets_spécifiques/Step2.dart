@@ -61,7 +61,7 @@ class _Step2State extends State<Step2> {
                       });
                       //on chercher par le nom de tableau medicament apres on voit id et on l extrait au detail medicament
                       med_search =
-                          await dbmanager.chercherMed(selected_item);
+                      await dbmanager.chercherMed(selected_item);
                        id_med_jcombobox = med_search.id_medicament;
                       print(' selected item $id_med_jcombobox');
                       //on va au tab details med et extrait tout ce que on veut

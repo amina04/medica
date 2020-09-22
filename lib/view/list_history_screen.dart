@@ -89,11 +89,7 @@ class _list_history extends State<list_history> {
 
                 patient_det = await dbmanager.getPatient(selected_id_patient);
                 solution_selectione = await dbmanager.getSolution(selected_id_patient)  ;
-                int med_id_calc =solution_selectione.FKmedId;
-                String date_pre_calc =solution_selectione.date_preparation;
-              calcul_selectionne = await dbmanager.getCalculs(med_id_calc,date_pre_calc);
 
-if(calcul_selectionne==null){reliquat_history='0';}else{reliquat_history =calcul_selectionne.reliquat;}
               },
             ),
           );

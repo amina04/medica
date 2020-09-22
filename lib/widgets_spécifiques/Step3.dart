@@ -181,9 +181,11 @@ onChanged: (value){
                   id_poche_choisi,
                   id_patient_search,
                 ));
-                double prixRe =medi_detail_det.prix*double.parse(reliquat);
+                double qte_reli_mg = (double.parse(reliquat)*dose)/volume;
+                double prixRe =medi_detail_det.prix*qte_reli_mg;
+              String prix_re = prixRe.toStringAsFixed(2);
                 int res=await dbmanager.insertcalculs(new Calculs(
-                  reliquat,nbr_flacon,stblt,prixRe,id_med_jcombobox,time,
+                  reliquat,nbr_flacon,stblt,double.parse(prix_re),id_med_jcombobox,time,
                 ));
         /*      }else{
                 //modifier medicament et modifier solution

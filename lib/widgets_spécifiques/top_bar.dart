@@ -58,22 +58,7 @@ class TopBar extends StatelessWidget {
   }
 }
 
-/*
-Center(
-child: RotateAnimatedTextKit(
-onTap: () {
-print("Tap Event");
-},
-text: ["Medica", "Medica"],
-textStyle: TextStyle(
-fontSize: 58.0,
-fontFamily: "Horizon",
-color: Colors.white,
-letterSpacing: 5.0),
-textAlign: TextAlign.start,
-alignment: AlignmentDirectional.topStart // or Alignment.topLeft
-),
-),*/
+
 class ClippingClass extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
